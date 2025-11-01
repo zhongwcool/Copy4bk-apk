@@ -1,0 +1,15 @@
+# 复制最新版本文件配置文件
+# 配置源目录和目标目录路径
+
+# 使用英文键名格式
+source=D:\work\AndroidProjects\butter-knife2\outputs
+
+# 目标目录配置方式1：直接在target行配置（推荐）
+# 使用 --clean_old true/false 格式，路径可以包含空格，无需引号
+target=D:\Resilio Sync\Resilio\QuantEdge\Apps\Android --clean_old false
+target=D:\FangcloudV2\personal_space\App\Android --clean_old true
+
+# 配置说明：
+# - --clean_old true：自动清理目标子目录中的旧文件，只保留最新文件
+# - --clean_old false：不清理旧文件（默认值）
+# - 如果目标文件已存在，程序会询问是否替换（回车=替换，Esc=跳过）
