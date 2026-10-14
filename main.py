@@ -14,7 +14,7 @@ def print_intro():
     print("===============================")
     print("主要功能：")
     print("- 从source目录下的渠道目录的release子目录中查找最新的apk文件")
-    print("- apk文件名格式：butterknife-v2025.x.x-xxx.apk")
+    print("- apk文件名格式：butterknife-v年份.x.x-xxx.apk 或 butterknife-v年份.x.xpackN-xxx.apk（支持任意年份）")
     print("- 复制到target目录下的对应渠道目录")
     print("- full渠道特殊处理：复制到target\\test目录")
     print("- 支持多目标目录一次性复制")
@@ -232,7 +232,7 @@ def read_config(config_file='copy4bk-apk.txt'):
 def get_latest_apk_in_release(release_dir):
     """
     获取release目录中最新版本的apk文件
-    文件名格式：butterknife-v2025.x.x-xxx.apk
+    文件名格式：butterknife-v年份.x.x-xxx.apk 或 butterknife-v年份.x.xpackN-xxx.apk（支持任意年份）
     返回最新修改的apk文件路径，如果不存在则返回None
     """
     import re
@@ -240,8 +240,8 @@ def get_latest_apk_in_release(release_dir):
     if not os.path.exists(release_dir):
         return None
     
-    # 匹配文件名格式：butterknife-v2025.x.x-xxx.apk
-    pattern = re.compile(r'^butterknife-v2025\.\d+\.\d+-.+\.apk$', re.IGNORECASE)
+    # butterknife-v2026.2.3-chf.apk 或 butterknife-v2026.2.3pack2-chf.apk
+    pattern = re.compile(r'^butterknife-v\d{4}\.\d+\.\d+(?:pack\d+)?-.+\.apk$', re.IGNORECASE)
     
     apk_files = []
     for item in os.listdir(release_dir):
@@ -258,36 +258,6 @@ def get_latest_apk_in_release(release_dir):
     
     # 返回最新修改的文件
     return files_with_time[0][0]
-
-
-def get_latest_files_in_dir(source_dir):
-    """
-    获取目录中最新版本的文件
-    返回修改时间最新的文件列表
-    """
-    files = []
-    if not os.path.exists(source_dir):
-        return files
-    
-    for item in os.listdir(source_dir):
-        item_path = os.path.join(source_dir, item)
-        if os.path.isfile(item_path):
-            files.append(item_path)
-    
-    if not files:
-        return []
-    
-    # 按修改时间排序，获取最新修改的文件时间
-    files_with_time = [(f, os.path.getmtime(f)) for f in files]
-    files_with_time.sort(key=lambda x: x[1], reverse=True)
-    
-    # 获取最新修改时间
-    latest_time = files_with_time[0][1]
-    
-    # 返回所有具有最新修改时间的文件（可能有多个文件在同一时间修改）
-    latest_files = [f for f, t in files_with_time if t == latest_time]
-    
-    return latest_files
 
 
 def ask_replace_file(file_name):
@@ -391,7 +361,7 @@ def clean_old_files(target_subdir, latest_file_names):
 def copy_latest_files(source_dir, target_dir, config=None):
     """
     从源目录下的渠道目录的release子目录中查找最新的apk文件，复制到目标目录的对应渠道目录中
-    source\渠道\release\butterknife-v2025.x.x-xxx.apk -> target\渠道\butterknife-v2025.x.x-xxx.apk
+    source\渠道\release\butterknife-v年份.x.x[packN]-xxx.apk -> target\渠道\同名apk（支持任意年份）
     特殊处理：full渠道 -> target\test
     config: 目标目录的配置字典，包含 clean_old 等选项
     """

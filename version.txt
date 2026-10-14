@@ -8,8 +8,8 @@ VSVersionInfo(
     # filevers and prodvers should be always a tuple with four items: (1, 2, 3, 4)
     # Set not needed items to zero 0.
     # Note: filevers/prodvers must match FileVersion/ProductVersion in StringFileInfo below
-    filevers=(2025, 1, 0, 0),  # Must match 'FileVersion' string below
-    prodvers=(2025, 1, 0, 0),  # Must match 'ProductVersion' string below
+    filevers=(2025, 1, 1, 0),  # Must match 'FileVersion' string below
+    prodvers=(2025, 1, 1, 0),  # Must match 'ProductVersion' string below
     # Contains a bitmask that specifies the valid bits 'flags'
     mask=0x3f,
     # Contains a bitmask that specifies the Boolean attributes of the file.
@@ -33,12 +33,12 @@ VSVersionInfo(
         '040904B0',
         [StringStruct('CompanyName', 'zhong Alex'),
         StringStruct('FileDescription', 'Copy4bk Application'),
-        StringStruct('FileVersion', '2025.1.0.0'),  # Must match filevers above
+        StringStruct('FileVersion', '2026.1.0.0'),  # Must match filevers above
         StringStruct('InternalName', 'Copy4bk-apk'),
         StringStruct('LegalCopyright', '© 2025 zhong Alex. All rights reserved.'),
         StringStruct('OriginalFilename', 'Copy4bk-apk.exe'),
         StringStruct('ProductName', 'Copy4bk-apk'),
-        StringStruct('ProductVersion', '2025.1.0.0')])  # Must match prodvers above
+        StringStruct('ProductVersion', '2026.1.0.0')])  # Must match prodvers above
       ]),
     VarFileInfo([VarStruct('Translation', [2052, 1200])])
   ]
